@@ -5,25 +5,22 @@ import { LogLevel } from './level';
 export interface LoggerOptions {
     name?: string;
     timestamps?: boolean;
-    appender?: Appender[];
+    appenders?: Appender[];
 }
 
 export class Logger {
 
+    private options: LoggerOptions;
+
     constructor(loggerOptions?: LoggerOptions) {
         this.options = loggerOptions || {};
 
-        // Default timestamp to be true if not provided
         this.options.timestamps = this.options.timestamps === undefined ? true : this.options.timestamps;
-        this.options.appender = this.options.appender || [new ConsoleAppender()];
-
-        // Override default log level colors if provided
+        this.options.appenders = this.options.appenders || [new ConsoleAppender()];
     }
 
-    private options: LoggerOptions;
-
     private log(level: LogLevel, ...args: unknown[]) {
-        for (const appender of this.options.appender!) {
+        for (const appender of this.options.appenders!) {
             const formattedLog = appender.options.formatter!.format({
                 level,
                 args,

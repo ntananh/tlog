@@ -1,4 +1,4 @@
-import { DEFAULT_LOG_LEVEL_COLORS, colorize, getTimeStamp, isError, stringify } from "../../utils";
+import { DEFAULT_LOG_LEVEL_COLORS, colorize, getTimeStamp, isError, safeStringify } from "../../utils";
 import { Formatter, FormatterConfig } from "../formatter";
 import { formatError } from "../utils/error.formatter";
 
@@ -27,8 +27,7 @@ export class SimpleFormatter implements Formatter {
                 if (isError(arg)) {
                     argString = formatError(arg as Error);
                 } else if (Object.keys(argObject).length > 0) {
-                    // not an empty object
-                    argString = stringify(argObject, 2);
+                    argString = safeStringify(argObject);
                 } else {
                     return acc;
                 }

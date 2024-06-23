@@ -5,13 +5,13 @@ import { Appender, AppenderOptions } from "../appender";
 
 type LOG_ROTATION = 'daily' | 'weekly' | 'monthly';
 
-export interface FileTransportOptions extends AppenderOptions {
+export interface FileAppenderOptions extends AppenderOptions {
     path: string;
     logRotation?: LOG_ROTATION;
 }
 
 export class FileAppender extends Appender {
-    constructor(private readonly fileOptions: FileTransportOptions) {
+    constructor(private readonly fileOptions: FileAppenderOptions) {
         super(fileOptions);
         this.ensureDirectoryExists(this.fileOptions.path);
     }
