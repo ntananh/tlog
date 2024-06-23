@@ -1,4 +1,7 @@
 import { Logger } from '../src';
+import { FileAppender } from '../src/appender';
+
+const fileAppender = new FileAppender({ path: 'logs/app.log' });
 
 const logger = new Logger();
 
