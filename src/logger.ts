@@ -10,16 +10,24 @@ export interface LoggerOptions {
 
 export class Logger {
 
+    private static instace: Logger;
     private options: LoggerOptions;
 
-    constructor(loggerOptions?: LoggerOptions) {
+    public static getLogger(loggerOptions?: LoggerOptions): Logger {
+        if (!Logger.instace) {
+            this.instace = new Logger(loggerOptions);
+        }
+        return Logger.instace;
+    }
+
+    private constructor(loggerOptions?: LoggerOptions) {
         this.options = loggerOptions || {};
 
         this.options.timestamps = this.options.timestamps === undefined ? true : this.options.timestamps;
         this.options.appenders = this.options.appenders || [new ConsoleAppender()];
     }
 
-    private log(level: LogLevel, ...args: unknown[]) {
+    private log(level: LogLevel, ...args: unknown[]): void {
         for (const appender of this.options.appenders!) {
             const formattedLog = appender.options.formatter!.format({
                 level,
