@@ -1,6 +1,6 @@
 # tlog
 
-A simple implementation for logging library. With dependendecies and 
+A simple implementation for logging library.
 
 # Usage
 
